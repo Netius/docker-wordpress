@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  db:
+    image: mariadb
+    # uncomment the following two lines for data persistence
+    volumes:
+      - ./db_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=simplepw
+    # uncomment the following lines, to be able to access the database on your machine
+    # ports:
+    #   - "3306:3306"
+  wp:
+    image: wordpress
+    volumes:
+      - ./wordpress:/var/www/html
+    ports:
+      - "8080:80"
+    environment:
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_PASSWORD=simplepw
